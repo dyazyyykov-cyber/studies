@@ -1,0 +1,19 @@
+# Временные файлы Visual Studio
+.vs/
+*.user
+*.suo
+*.slnx
+
+# Результаты сборки (C/C++)
+debug/
+release/
+x64/
+x86/
+bin/
+obj/
+
+# Исполняемые файлы
+*.exe
+*.dll
+*.pdb
+*.ilk
