@@ -1,14 +1,13 @@
 ﻿#include <stdio.h>
 #include <conio.h>
 #include <math.h>
-#include <windows.h>
+#include <locale.h>
 
 double a=3, b=12, c=9, d, x1, x2;
 void main()
 {
 
-    SetConsoleCP(1251);       // Чтобы правильно работал ввод (scanf)
-    SetConsoleOutputCP(1251); // Чтобы правильно работал вывод (printf)
+    setlocale(LC_ALL, "");
 
     d = pow(b,2) - 4 * a * c;
     

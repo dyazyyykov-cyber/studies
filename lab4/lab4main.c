@@ -1,6 +1,6 @@
 ﻿#include <stdio.h>
-#include <stdlib.h> 
-#include <windows.h>
+#include <stdlib.h>
+#include <locale.h> 
 #include "lab4.h"
 
 
@@ -9,8 +9,7 @@ void main()
     char s[80];
     double a = 0, b = 0, c = 0, S = 0, P = 0;
 
-    SetConsoleCP(1251);       // Чтобы правильно работал ввод (scanf)
-    SetConsoleOutputCP(1251); // Чтобы правильно работал вывод (printf)
+    setlocale(LC_ALL, "");
 
     printf("Введите значения длин сторон треугольника\n");
 

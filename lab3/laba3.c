@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <ctype.h>
-#include <windows.h>
+#include <locale.h>
 
 enum {rows=3, columns=3};
 
@@ -17,8 +17,7 @@ void main()
     char s[80];
     int m[rows][columns], SumMainDi=0, SumSecondDi=0;
 
-    SetConsoleCP(1251);       // Чтобы правильно работал ввод (scanf)
-    SetConsoleOutputCP(1251); // Чтобы правильно работал вывод (printf)
+    setlocale(LC_ALL, "");
 
     //Получаем строку
     printf("Введите строку:\n");

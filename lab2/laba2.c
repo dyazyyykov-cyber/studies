@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <math.h>
-#include <windows.h>
+#include <locale.h>
 
 enum {rows_M1 = 3, columns_M1 = 3, rows_M2 = 2, columns_M2 = 2};
 double m1[rows_M1][columns_M1], SumMainDi_M1, SumSecondDi_M1;
@@ -18,8 +18,7 @@ void calculate_square();
 
 void main()
 {
-    SetConsoleCP(1251);       // Чтобы правильно работал ввод (scanf)
-    SetConsoleOutputCP(1251); // Чтобы правильно работал вывод (printf)
+    setlocale(LC_ALL, "");
 
     //Ввод первой матрицы с консоли
     input_M1();
