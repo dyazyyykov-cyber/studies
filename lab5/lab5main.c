@@ -6,8 +6,8 @@
 
 void main()
 {
-	int rows_m1 = 0, columns_m1 = 0, rows_m2 = 0, columns_m2 = 0, rows_result = 0, columns_result = 0, operation = 0;
-	double **m1, **m2, **result_m;
+	int rows_m1 = 0, columns_m1 = 0, rows_m2 = 0, columns_m2 = 0, rows_result = 0, columns_result = 0;
+	double **m1 = 0, **m2 = 0, **result_m = 0;
 	char s[80];
 
 	setlocale(LC_ALL, "");
@@ -20,31 +20,31 @@ void main()
 	printf("\n¬ведите вторую матрицу: \n");
 	m2 = create_m(&rows_m2, &columns_m2, 1);
 	input_m(m2, rows_m2, columns_m2);
-	printf(m2, rows_m2, columns_m2);
-
-	rows_result = rows_m1;
-	columns_result = columns_m2;
-	result_m = create_m(&rows_result, &columns_result, 0);
-
+	print_m(m2, rows_m2, columns_m2);
+	
 	while (1)
 	{
-		printf("\n¬ведите операцию \"*\", \"+\" или \"-\": ");
+		printf("\n\n¬ведите операцию \"*\", \"+\" или \"-\". »спользуйте \"q\" дл€ выхода: ");
+		
 		if (get_clean_str(s, sizeof(s)))
 		{
-			int operation = 0;
-
-			if (s[0] == '*')
+			if (s[0] == 'q')
 			{
-
+				free_m(m1, rows_m1);
+				free_m(m2, rows_m2);
+				free_m(result_m, rows_result);
+				return;
 			}
-			calculate_m(m1, m2, result_m, rows_m1, columns_m1, rows_m2, columns_m2, );
+
+			char operation = s[0];
+			result_m = calculate_m(m1, m2, rows_m1, columns_m1, rows_m2, columns_m2, &rows_result, &columns_result, operation);
+			if (result_m)
+			{
+				print_m(result_m, rows_result, columns_result);
+			}
 		}
-	}
-		
+	}		
 }
-
-
-
 
 
 //–азместить в динамической пам€ти 2 массива Ц 2 матрицы размерностью n на n с элементами 

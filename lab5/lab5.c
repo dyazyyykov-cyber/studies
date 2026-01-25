@@ -6,7 +6,7 @@
 char *get_clean_str(char *s, int size)
 {
 	while (1)
-	{
+	{	
 		if (!(fgets(s, size, stdin)))
 		{
 			printf("Ошибка чтения");
@@ -41,7 +41,7 @@ void print_m(double **m, int rows, int columns)
 	}
 }
 
-void input_m(double** m, int rows, int columns)
+void input_m(double **m, int rows, int columns)
 {
 	int i = 0, j = 0;
 	char s[80];
@@ -88,8 +88,8 @@ double**create_m(int *rows, int *columns, int UserInput)
 			return 0;
 		}
 	}
-
-	m = (double**)malloc(*rows * sizeof(double*));
+																		
+	m = (double**)malloc(*rows * sizeof(double*));          
 
 	for (int i = 0; i < *rows; i++)
 	{
@@ -100,35 +100,42 @@ double**create_m(int *rows, int *columns, int UserInput)
 	
 }
 
-double **calculate_m(double** m1, double** m2, double** result_m, int rows_m1, int columns_m1, int rows_m2, int columns_m2, int operation)
+double **calculate_m(double** m1, double** m2, int rows_m1, int columns_m1, int rows_m2, int columns_m2, int *rows_result, int *columns_result, char operation)
 {
 	int i = 0, j = 0, k = 0;
-	enum {rows = 0, columns = 0};
-	double x = 0;
+	double x = 0, **result_m = 0;
 
 	switch (operation)
-	{
-		case 1:
-			if (columns_m1 == rows_m2)
+	{	
+		case '*':
+			if (columns_m1 == rows_m2)	
 			{
+				result_m = create_m(&rows_m1, &columns_m2, 0);
 				for (i = 0; i < rows_m1; i++)
 				{
 					for (j = 0; j < columns_m2; j++)
 					{
 						x = 0;
-						for (k = 0; k < rows_m1; k++)
+						for (k = 0; k < columns_m1; k++)
 						{
-							x = x + (m1[k][i] * m2[i][j]);
+							x = x + (m1[i][k] * m2[k][j]);
 						}
 						result_m[i][j] = x;
 					}
 				}
+				*columns_result = columns_m2;
+				*rows_result = rows_m1;
+			}
+			else
+			{
+				printf("\nОшибка. Для операции \"*\" кол-во столбцов первой матрицы должно совпадать с кол-вом строк второй матрицы.\n");
 			}
 			break;
-
-		case 2:
+		
+		case '+':
 			if (columns_m1 == columns_m2 && rows_m1 == rows_m2)
 			{
+				result_m = create_m(&rows_m1, &columns_m1, 0);
 				for (i = 0; i < rows_m1; i++)
 				{
 					for (j = 0; j < columns_m2; j++)
@@ -136,12 +143,19 @@ double **calculate_m(double** m1, double** m2, double** result_m, int rows_m1, i
 						result_m[i][j] = m1[i][j] + m2[i][j];
 					}
 				}
+				*columns_result = columns_m1;
+				*rows_result = rows_m1;
+			}
+			else
+			{
+				printf("\nОшибка. Для операций \"+\" и \"-\" размеры матриц должны совпадать.\n");
 			}
 			break;
-
-		case 3:
+		
+		case '-':
 			if (columns_m1 == columns_m2 && rows_m1 == rows_m2)
 			{
+				result_m = create_m(&rows_m1, &columns_m1, 0);
 				for (i = 0; i < rows_m1; i++)
 				{
 					for (j = 0; j < columns_m2; j++)
@@ -149,17 +163,35 @@ double **calculate_m(double** m1, double** m2, double** result_m, int rows_m1, i
 						result_m[i][j] = m1[i][j] - m2[i][j];
 					}
 				}
+				*columns_result = columns_m1;
+				*rows_result = rows_m1;
+			}
+			else
+			{
+				printf("\nОшибка. Для операций \"+\" и \"-\" размеры матриц должны совпадать.\n");
 			}
 			break;
-
+		
 		default:
-			printf("Введенная операция не предусмотрена\n");
+			printf("\nВведенная операция не предусмотрена\n");
 			return 0;
 	}
 
 	return result_m;
 }
 
+void free_m(double **m, int rows)
+{
+	if (m == 0) return;
+
+	int i;
+
+	for (i = 0; i < rows; i++)
+	{
+		free(m[i]);
+	}
+	free(m);
+}
 
 //Разместить в динамической памяти 2 массива – 2 матрицы размерностью n на n с элементами 
 //типа double(значения n и элементы массивов ввести с консоли).
