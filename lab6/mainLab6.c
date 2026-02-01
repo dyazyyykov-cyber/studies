@@ -8,14 +8,14 @@
 
 void main()
 {
-	FILE *people, *target_people; 
+	FILE *people = NULL, *target_people = NULL; 
 
 	if (input(&people) || output(&target_people))
 	{
 		return;
 	}
 		
-	check_year(&people, &target_people);
+	check_year(people, target_people);
 	
 	fclose(people);
 	fclose(target_people);

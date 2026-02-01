@@ -6,10 +6,10 @@
 #include "lab6.h"
 
 
-int input(FILE *people)
+int input(FILE **people)
 {
-	people = fopen("./input.txt", "r");
-	if (!people)
+	*people = fopen("./input.txt", "r");
+	if (!*people)
 	{
 		perror("Не удалось откртыть файл с вводными данными");
 		return 1;
@@ -17,10 +17,10 @@ int input(FILE *people)
 	return 0;
 }
 
-int output(FILE *target_people)
+int output(FILE **target_people)
 {
-	target_people = fopen("./output.txt", "a");
-	if (!target_people)
+	*target_people = fopen("./output.txt", "a");
+	if (!*target_people)
 	{
 		perror("Не удалось откртыть файл для вывода данных");
 		return 1;
@@ -42,5 +42,5 @@ void check_year(FILE* people, FILE* target_people)
 			fprintf(target_people, s);
 		}
 	}
-	return 0;
+	return;
 }
