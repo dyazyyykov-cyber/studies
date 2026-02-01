@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+п»ї#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,7 @@ int input(FILE **people)
 	*people = fopen("./input.txt", "r");
 	if (!*people)
 	{
-		perror("Не удалось откртыть файл с вводными данными");
+		perror("РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‚С‹С‚СЊ С„Р°Р№Р» СЃ РІРІРѕРґРЅС‹РјРё РґР°РЅРЅС‹РјРё");
 		return 1;
 	}
 	return 0;
@@ -22,7 +22,7 @@ int output(FILE **target_people)
 	*target_people = fopen("./output.txt", "a");
 	if (!*target_people)
 	{
-		perror("Не удалось откртыть файл для вывода данных");
+		perror("РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєСЂС‚С‹С‚СЊ С„Р°Р№Р» РґР»СЏ РІС‹РІРѕРґР° РґР°РЅРЅС‹С…");
 		return 1;
 	}
 	return 0;

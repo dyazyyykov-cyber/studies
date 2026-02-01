@@ -1,4 +1,4 @@
-#ifndef HEADERO_H
+﻿#ifndef HEADERO_H
 #define HEADERO_H
 
 double calculateS(double a, double b, double c);

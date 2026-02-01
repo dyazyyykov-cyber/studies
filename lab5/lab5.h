@@ -1,4 +1,4 @@
-#ifndef HEADHERO_H
+﻿#ifndef HEADHERO_H
 #define HEADHERO_H
 
 

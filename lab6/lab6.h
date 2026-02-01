@@ -1,4 +1,4 @@
-#ifndef LAB_HERO
+﻿#ifndef LAB_HERO
 #define LAB_HERO
 
 int output(FILE** target_people);
