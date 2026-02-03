@@ -8,11 +8,6 @@ struct human {
     int year;
 };
 
-struct human {
-    char fname[30];
-    char lname[30];
-    int year;
-};
 
 void main()
 {
@@ -31,11 +26,11 @@ void main()
         
         printf("Введите фамилию %s человека: ", numbers[i]);
         while (get_clean_str(s, sizeof(s)));
-        strcpy(people_sorted[i].fname, s);
+        strcpy(people_sorted[i].lname, s);
 
         printf("Введите год рождения %s человека: ", numbers[i]);
         while (get_clean_str(s, sizeof(s)));
-        strcpy(people_sorted[i].fname, s);
+        people_sorted[i].year = s;
        
     }
 
@@ -67,6 +62,10 @@ int get_clean_str(char* str, int size)
     return 0;
 }
 
+void sort(char *array, int size)
+{
+    qsort()
+}
 
 //  Объявить тип-структуру humen, включающую имя человека, фамилию и год рождения. 
 //  Объявить два массива из четырёх элементов типа humen. 
