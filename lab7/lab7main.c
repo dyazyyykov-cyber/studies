@@ -9,13 +9,13 @@ struct human {
 };
 
 
-void main()
+int main()
 {
     char* numbers[] = {"первого", "второго", "третьего", "четвертого"};
     struct human people_not_sorted[4];
     struct human people_sorted[4];
     char s[80];
-    int i = 0;
+    int i = 0, n = 0;
 
     for (i = 0; i < 4; i++)
     {
@@ -34,6 +34,18 @@ void main()
        
     }
 
+    n = sizeof(people_not_sorted) / sizeeof(people_not_sorted[0]);
+    qsort(people_not_sorted, n, sizeof(people_not_sorted[0]), comp);
+
+    return 0;
+}
+
+int comp(const void* a, const void* b)
+{
+    const struct human* personA = (const struct human*)a;
+    const struct human* personB = (const struct human*)b;
+
+    return personA -> year - personB->year;
 }
 
 int get_clean_str(char* str, int size)
@@ -62,10 +74,6 @@ int get_clean_str(char* str, int size)
     return 0;
 }
 
-void sort(char *array, int size)
-{
-    qsort()
-}
 
 //  Объявить тип-структуру humen, включающую имя человека, фамилию и год рождения. 
 //  Объявить два массива из четырёх элементов типа humen. 
