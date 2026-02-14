@@ -1,6 +1,9 @@
-﻿#include <stdio.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
+#include "lab7.h"
 
 struct human {
     char fname[30];
@@ -11,6 +14,9 @@ struct human {
 
 int main()
 {
+    SetConsoleCP(1251);       
+    SetConsoleOutputCP(1251);
+
     char* numbers[] = {"первого", "второго", "третьего", "четвертого"};
     struct human people_not_sorted[4];
     struct human people_sorted[4];
@@ -22,20 +28,28 @@ int main()
 
         printf("Введите имя %s человека: ", numbers[i]);
         while (get_clean_str(s, sizeof(s)));
-        strcpy(people_sorted[i].fname, s);
+        strcpy(people_not_sorted[i].fname, s);
         
         printf("Введите фамилию %s человека: ", numbers[i]);
         while (get_clean_str(s, sizeof(s)));
-        strcpy(people_sorted[i].lname, s);
+        strcpy(people_not_sorted[i].lname, s);
 
         printf("Введите год рождения %s человека: ", numbers[i]);
         while (get_clean_str(s, sizeof(s)));
-        people_sorted[i].year = s;
+        people_not_sorted[i].year = atoi(s);
        
+        printf("\n");
+
     }
 
-    n = sizeof(people_not_sorted) / sizeeof(people_not_sorted[0]);
-    qsort(people_not_sorted, n, sizeof(people_not_sorted[0]), comp);
+    n = sizeof(people_not_sorted) / sizeof(people_not_sorted[0]);
+
+    memcpy(people_sorted, people_not_sorted, sizeof(people_not_sorted));
+
+    qsort(people_sorted, n, sizeof(people_sorted[0]), comp);
+
+    print(people_sorted, n);
+
 
     return 0;
 }
@@ -74,6 +88,16 @@ int get_clean_str(char* str, int size)
     return 0;
 }
 
+void print(struct human *people_sorted, int n)
+{
+    int i = 0;
+
+    for (i = 0; i < n; i++)
+    {
+        printf("%s %s, год рождения: %d\n", people_sorted[i].fname, people_sorted[i].lname, people_sorted[i].year);
+    }
+
+}
 
 //  Объявить тип-структуру humen, включающую имя человека, фамилию и год рождения. 
 //  Объявить два массива из четырёх элементов типа humen. 
