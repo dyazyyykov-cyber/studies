@@ -65,8 +65,6 @@ int comp(const void* a, const void* b)
 int get_clean_str(char* str, int size)
 {
 
-    int* t;
-
     if (fgets(str, size, stdin))
     {
         if (str[0] == '\n')
