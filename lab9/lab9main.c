@@ -2,30 +2,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
+#include <locale.h>
 
 int get_clean_str(char* str, int size);
 void preprocessing_str(const char* str, char* out);
 
 int main()
 {
+
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    setlocale(LC_ALL, "Russian");
+
     char s[80];
     char out[160];
-    char* tok;
+    char* tok, op;
+    double result, num;
 
     printf("Введите выражение: ");
     while (get_clean_str(s, sizeof(s)));
 
     preprocessing_str(s, out);
 
-    printf("После предобработки: %s\n", out);
+    tok = strtok(out, " ");      // первый токен
+    result = strtod(tok, NULL);  // начальное число
 
-    tok = strtok(out, " ");
-    while (tok != NULL)
+    while (1)
     {
-        printf("Токен: %s\n", tok);
-        tok = strtok(NULL, " ");
+        tok = strtok(NULL, " "); // оператор
+        if (tok == NULL)
+            break;
+
+        op = tok[0];
+
+        tok = strtok(NULL, " "); // число после оператора
+        if (tok == NULL)
+            break;
+
+        num = strtod(tok, NULL);
+
+        if (op == '+')
+            result = result + num;
+        else if (op == '-')
+            result = result - num;
     }
 
+    printf("%.2f\n", result);
     return 0;
 }
 
