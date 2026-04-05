@@ -2,48 +2,7 @@
 #include <stdarg.h>
 #include <locale.h>
 #include <windows.h>
-
-typedef struct {
-    double sum;
-    double max;
-    double min;
-    double average;
-} Result;
-
-Result calculate(int count, ...)
-{
-    Result res = { 0, 0, 0, 0 };
-
-    if (count <= 0)
-        return res;
-
-    va_list args;
-    va_start(args, count);
-
-    double first = va_arg(args, double);
-
-    res.sum = first;
-    res.max = first;
-    res.min = first;
-
-    for (int i = 1; i < count; i++) {
-        double x = va_arg(args, double);
-
-        res.sum += x;
-
-        if (x > res.max)
-            res.max = x;
-
-        if (x < res.min)
-            res.min = x;
-    }
-
-    va_end(args);
-
-    res.average = res.sum / count;
-
-    return res;
-}
+#include "lab11.h"
 
 int main()
 {
@@ -60,3 +19,6 @@ int main()
 
     return 0;
 }
+
+//Создать в отдельном модуле функции с переменным количеством аргументов,
+// которая вычисляет их сумму, максимум, минимум, среднее арифметическое.
