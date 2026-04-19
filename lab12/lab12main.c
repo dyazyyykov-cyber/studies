@@ -45,7 +45,8 @@ int main()
 
 int currentDate(struct tm* t)
 {
-    t = localtime(&mytime);
+    time_t now = time(NULL);
+    *t = *localtime(&now);
 }
 
 int printDayWeek(struct tm *t ,int* year, int* month, int* day)
