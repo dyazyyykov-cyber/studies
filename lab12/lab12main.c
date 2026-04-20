@@ -8,7 +8,6 @@
 int main()
 {
     int year, month, day;
-    char* week[] = { "Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" };
     char* str[80];
     struct tm t = { 0 };
 
@@ -52,13 +51,15 @@ int printcurrentDate(struct tm* t)
 
 int printDayWeek(struct tm *t ,int* year, int* month, int* day)
 {
+    char* week[] = { "Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" };
+
     t->tm_year = *year - 1900;
     t->tm_mon = *month - 1;
     t->tm_mday = *day;
 
     mktime(t);
 
-    return t->tm_wday;
+    printf("%s", week[t->tm_wday]);
 }
 
 int printMonth(struct tm* t, int* year, int* month)
