@@ -43,10 +43,11 @@ int main()
 
 }
 
-int currentDate(struct tm* t)
+int printcurrentDate(struct tm* t)
 {
     time_t now = time(NULL);
     *t = *localtime(&now);
+    printf("%02d.%02d.%d", t->tm_mday, t->tm_mon + 1, t->tm_year + 1900);
 }
 
 int printDayWeek(struct tm *t ,int* year, int* month, int* day)
