@@ -22,15 +22,15 @@ int main()
     {
         if (strcmp(str, "now") == 0)
         {
-            currentDate(&t);
+            printCurrentDate(&t);
         }
         else if (sscanf(str, "%d.%d.%d%", &year, &month, &day) == 3)
         {
-            printWeek();
+            printDayWeek(&t, &year, &month, &day);
         }
         else if (sscanf(str, "%d.%d", &year, &month) == 2)
         {
-            printMonth();
+            printMonth(&t, &year, &month);
         }
         else if (sscanf(str, "%d", &year) == 1)
         {
@@ -42,7 +42,7 @@ int main()
 
 }
 
-int printcurrentDate(struct tm* t)
+int printCurrentDate(struct tm* t)
 {
     time_t now = time(NULL);
     *t = *localtime(&now);
@@ -64,9 +64,36 @@ int printDayWeek(struct tm *t ,int* year, int* month, int* day)
 
 int printMonth(struct tm* t, int* year, int* month)
 {
+    int offset = 0, i = 0;
+
     t->tm_year = *year - 1900;
     t->tm_mon = *month - 1;
-    t->tm_mday = *day;
+    t->tm_mday = 1;
+
+    mktime(t);
+
+    offset = t->tm_wday - 1;
+    if (offset = 0)
+    {
+        offset = 6;
+    }
+
+    for (i = 0; i < offset; i++)
+    {
+        printf("  ");
+    }
+
+    for (i = 0; i < t->tm_mday; i++)
+    {
+        printf("%2d", i);
+
+        if ((offset + i) % 7 == 0)
+        {
+            printf("\n");
+        }
+
+    }
+
 }
 
 int printYear(struct tm* t, int* year)
@@ -80,9 +107,9 @@ int get_clean_str(char* str, int size)
 {
     if (fgets(str, size, stdin))
     {
-        str[strscpn(str, "\n")] = '\0';
+        str[strсspn(str, "\n")] = '\0';
 
-        if (str == "\0")
+        if (str[0] == '\0')
         {
             return 0;
         }
