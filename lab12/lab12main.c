@@ -34,7 +34,7 @@ int main()
         }
         else if (sscanf(str, "%d", &year) == 1)
         {
-            printYear();
+            printYear(&t, &year);
         }
     }
 
@@ -64,7 +64,7 @@ int printDayWeek(struct tm *t ,int* year, int* month, int* day)
 
 int printMonth(struct tm* t, int* year, int* month)
 {
-    int offset = 0, i = 0;
+    int offset = 0, i = 0, days = 0;
 
     t->tm_year = *year - 1900;
     t->tm_mon = *month - 1;
@@ -73,10 +73,18 @@ int printMonth(struct tm* t, int* year, int* month)
     mktime(t);
 
     offset = t->tm_wday - 1;
-    if (offset = 0)
+    if (offset < 0)
     {
         offset = 6;
     }
+
+    t->tm_year = *year - 1900;
+    t->tm_mon = *month;
+    t->tm_mday = 0;
+
+    mktime(t);
+
+    days = t->tm_mday;
 
     for (i = 0; i < offset; i++)
     {
@@ -98,9 +106,14 @@ int printMonth(struct tm* t, int* year, int* month)
 
 int printYear(struct tm* t, int* year)
 {
-    t->tm_year = *year - 1900;
-    t->tm_mon = *month - 1;
-    t->tm_mday = *day;
+    int i = 0;
+
+    for (i = 0; i < 12; i++)
+    {
+        printMonth(&t, &year, &i);
+        printf("\n");
+    }
+
 }
 
 int get_clean_str(char* str, int size)
